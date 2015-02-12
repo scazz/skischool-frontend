@@ -1,4 +1,6 @@
+import Ember from "ember";
 import CalendarEntry from "../models/calendarEntry.js";
+
 
 export default Ember.View.extend({
 	templateName: 'calendar-instructor-week',
@@ -21,7 +23,7 @@ export default Ember.View.extend({
 			currentTimePeriod.add( timePeriod );
 		}
 
-		return timeslots
+		return timeslots;
 	}.property('weekStart', 'weekEnd', 'timePeriod'),
 
 	getEventForTime: function(startTime, endTime) {

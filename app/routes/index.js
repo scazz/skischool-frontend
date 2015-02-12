@@ -7,7 +7,7 @@ var IndexRoute = Ember.Route.extend({
 				id: 1,
 				name: "test"
 			}
-		]
+		];
 	}
 });
 
