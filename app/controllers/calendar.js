@@ -12,8 +12,8 @@ export default Ember.ObjectController.extend({
 			id: 1,
 			instructor: 1,
 			type: "group",
-			start_time: 1010,
-			end_time:   1045
+			start_time: 1423734220099,
+			end_time:   1423735220099
 		}
 	]
 
