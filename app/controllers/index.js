@@ -1,7 +1,7 @@
 import Ember from "ember";
 
 export default Ember.Controller.extend({
-	instructors: [
+	/*instructors: [
 		{
 			id: 1,
 			name: "johnny"
@@ -10,5 +10,5 @@ export default Ember.Controller.extend({
 			id: 2,
 			name: "phil"
 		}
-	]
+	] */
 });

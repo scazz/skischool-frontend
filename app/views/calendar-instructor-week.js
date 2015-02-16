@@ -1,32 +1,58 @@
 import Ember from "ember";
 import CalendarEntry from "../models/calendarEntry.js";
+import TimePeriod from "../models/timePeriod.js";
 
 
 export default Ember.View.extend({
 	templateName: 'calendar-instructor-week',
-	weekStart: moment().startOf('week'),
-	weekEnd: moment().endOf('week'),
-	timePeriod: moment.duration(12, "hours" ),
+	workingWeekStart: function() {
+		var weekStart = moment().startOf('week');
+		var workingWeekStart = weekStart.add( this.get('dayStart'), 'hours');
+		return workingWeekStart;
+	}.property(),
+	workingWeekEnd: moment().endOf('week'),
+	calendarDisplayPeriod: moment.duration(1, "hour" ),
+
+	dayStart: 8,
+	dayEnd: 17,
+
+	timePeriods: function() {
+		var timeperiods = [];
+		var calendarDisplayPeriod = this.get('calendarDisplayPeriod');
+
+		var currentTimePeriodStart = this.get('workingWeekStart');
+
+		while (currentTimePeriodStart.isBefore( this.get('workingWeekEnd'))) {
+			var currentTimePeriodEnd = currentTimePeriodStart.clone().add( calendarDisplayPeriod );
+			var timePeriod = TimePeriod.create({
+				start: currentTimePeriodStart.clone(),
+				end: currentTimePeriodEnd.clone()
+			});
+			timeperiods.push(timePeriod);
+
+			currentTimePeriodStart.add( calendarDisplayPeriod  );
+
+			// we need to skip from today to tomorrow
+			if (currentTimePeriodStart.hours() > this.get('dayEnd')) {
+				currentTimePeriodStart.add(1, "day").hours( this.get('dayStart'));
+			}
+		}
+		return timeperiods;
+	}.property(),
 
 
 	entries: function() {
-		var timeslots = [];
-		var timePeriod  = this.get('timePeriod'); // 12 hours (AM->PM)
+		var calendarEntries = [];
 
-		var currentTimePeriod = this.get('weekStart');
-
-		while (currentTimePeriod.isBefore( this.get('weekEnd') )) {
-			var endPeriod = currentTimePeriod.clone().add( timePeriod );
-
-			var event = this.getEventForTime( currentTimePeriod, endPeriod );
-			timeslots.push( event );
-			currentTimePeriod.add( timePeriod );
+		var timePeriods = this.get('timePeriods');
+		for(var i=0; i<timePeriods.length; i++) {
+			var event = this.getEventForTimePeriod( timePeriods[i]);
+			calendarEntries.push(event);
 		}
-
-		return timeslots;
+		return calendarEntries;
 	}.property('weekStart', 'weekEnd', 'timePeriod'),
 
-	getEventForTime: function(startTime, endTime) {
+	getEventForTimePeriod: function(timePeriod) {
 		var self = this;
 		var events = this.get('controller.events');
 		var current_instructor = self.get('instructor');
@@ -44,7 +70,7 @@ export default Ember.View.extend({
 			event.start_time = moment(event.start_time);
 			event.end_time = moment(event.end_time);
 
-			if ( event.start_time.isBetween(startTime, endTime) ) {
+			if ( event.start_time.isBetween(timePeriod.start, timePeriod.end) ) {
 				console.log("true");
 				return true;
 			}
