@@ -1,0 +1,8 @@
+{{#if hasLesson }}
+	<div class="time-period group-lesson">
+		{{#link-to "calendar.info" this.lesson}}GROUP{{/link-to}}
+	</div>
+{{else}}
+	{{ empty-calendar-timeperiod template=this}}
+
+{{/if}}

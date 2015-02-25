@@ -1,6 +1,14 @@
 import Ember from "ember";
 import CalendarController from "../controllers/calendar.js";
 
+
+export default Ember.View.extend({
+
+
+
+});
+
+/*
 export default Ember.ContainerView.extend({
 
 	updateChildViews: function() {
@@ -12,6 +20,8 @@ export default Ember.ContainerView.extend({
 			return self.createChildView('CalendarInstructorWeek', {instructor: instructor});
 		}));
 
+		self.pushObject( self.createChildView(''))
+
 	},
 
 	init: function() {
@@ -19,4 +29,4 @@ export default Ember.ContainerView.extend({
 		this.set('controller', CalendarController.create({}));
 		this.updateChildViews();
 	}
-});
+}); */

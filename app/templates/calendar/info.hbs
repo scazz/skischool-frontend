@@ -1,0 +1,12 @@
+<div class="info">
+
+have some lesson info - {{this}} {{id}} {{type}} {{readableStartTime}} {{isGroupEvent}}
+<br />
+<br />
+{{#each enrollment in enrollments}}
+	Booked by: {{enrollment.client.name}} <br />
+	Pupil name: {{enrollment.pupil.name}} <br />
+	Age: {{enrollment.pupil.age}} <br /><br />
+{{/each}}
+
+</div>

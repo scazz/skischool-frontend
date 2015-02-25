@@ -1,5 +1,11 @@
-{{view.instructor.name}}
+<div class="calendar-row">
+	<div class="instructor">
+		{{view.instructor.name}}
+	</div>
 
-{{#each view.entries}}
-	{{this.eventType}}
-{{/each}}
+	{{#each event in view.entries }}
+		{{ render "calendar-event" event }}
+	{{/each}}
+</div>
+</div>
+

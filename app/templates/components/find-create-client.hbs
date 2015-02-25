@@ -1,0 +1,19 @@
+{{#if existingClientSelected}}
+	{{currentClient.fullName}} <span {{action 'unselectClient'}}>X</span>
+{{else}}
+	{{ input type="text" value=searchQuery  placeholder="Search for existing clients..."}} <br />
+
+    <ul class="autocomplete">
+		{{#each client in filteredClients}}
+            <li {{action 'selectClient' client}}>{{client.name}}</li>
+		{{/each}}
+    </ul>
+{{/if}}
+
+
+
+<br />
+Name: {{ input type="text" value=currentClient.name}} <br />
+First name {{ input type="text" value=currentClient.first_name }} <br />
+Email {{ input type="text" value=currentClient.email }} <br />
+Telephone {{ input type="text" value=currentClient.telephone_1 }} <br />

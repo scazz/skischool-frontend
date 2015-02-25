@@ -1,0 +1,12 @@
+{{#bootstrap-modal title="new lesson" ok='save' close='close'}}
+
+	Book a lesson!
+
+	{{view select
+		content=instructors
+		optionValuePath="content.id"
+		optionLabelPath="content.name"}}
+
+	Start time: {{startTime}}
+
+{{/bootstrap-modal}}

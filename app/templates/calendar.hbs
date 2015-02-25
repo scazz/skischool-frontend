@@ -1,1 +1,16 @@
-Hii {{view.x}}
+<div>
+	{{#link-to 'calendar.client-modal'}}Clients{{/link-to}}
+</div>
+
+<div>
+	Current Client: {{currentClientName}}
+</div>
+
+<div class="calendar">
+	{{#each instructor in instructors}}
+		{{ view calendar-instructor-week instructor=instructor}}
+	{{/each}}
+</div>
+
+{{outlet}}
+
