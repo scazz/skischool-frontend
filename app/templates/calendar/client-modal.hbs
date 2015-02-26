@@ -2,4 +2,11 @@
 
 	{{find-create-client currentClient=currentClient search="filterClients" filteredClients=filteredClients}}
 
+
+	{{#if currentClient.id}}
+
+		{{client-lesson-history client=currentClient}}
+
+	{{/if}}
+
 {{/bootstrap-modal}}

@@ -26,8 +26,9 @@ export default Ember.ArrayController.extend({
 				this.set('filteredClients', null);
 				return;
 			}
+			var regex = new RegExp(query, 'i');
 			var filteredClients = this.get('model').filter(function(client) {
-				return client.get('name').match(query);
+				return client.get('name').match(regex);
 			});
 			this.set('filteredClients', filteredClients);
 		}
