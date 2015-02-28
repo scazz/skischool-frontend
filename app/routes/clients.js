@@ -1,5 +1,5 @@
 export default Ember.Route.extend({
-	controllerName: 'calendar.clients',
+	controllerName: 'clients',
 
 	model: function() {
 		return this.store.find('client');

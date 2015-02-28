@@ -1,5 +1,22 @@
-{{#if client.id}}
+Show some client history!
 
-	Show some client history!
+<table>
+	<thead>
+		<th>Pupil</th>
+		<th>Instructor</th>
+		<th>Lesson Type</th>
+		<th>Level</th>
+		<th>Date</th>
+	</thead>
 
-{{/if}}
+	{{#each lesson in pastEnrollments}}
+		<tr>
+			<td>{{ lesson.pupil.name }}</td>
+			<td>{{ lesson.instructor.name}}</td>
+			<td>{{ lesson.type }}</td>
+			<td> </td>
+			<td>{{ lesson.start_time }}</td>
+		</tr>
+	{{/each}}
+
+</table>

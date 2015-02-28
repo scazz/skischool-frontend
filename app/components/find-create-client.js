@@ -4,21 +4,26 @@ export default Ember.Component.extend({
 
 	currentClient: {},
 
-	existingClientSelected: function() {
-		return this.get('currentClient').id;
-	}.property('currentClient'),
+	clientSelectedAction: 'clientSelected',
+
+	//existingClientSelected: function() {
+	//	return this.get('currentClient').id;
+	//}.property('currentClient'),
+
+	onSearchQueryChange: function() {
+		Ember.run.debounce(this, this.updateSearchQuery, 500);
+	}.observes('searchQuery'),
 
 	updateSearchQuery: function() {
 		var query = this.get('searchQuery');
 		this.sendAction('search', query);
-	}.observes('searchQuery'),
+	},
 
 	actions: {
 		selectClient: function(client) {
 			this.set('currentClient', client);
-		},
-		unselectClient: function() {
-			this.set('currentClient', {});
+			this.sendAction('clientSelectedAction', client);
+
 		}
 	}
 

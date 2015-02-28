@@ -1,7 +1,7 @@
 export default Ember.ArrayController.extend({
 	needs: ['calendar'],
 
-	filteredClients: null,
+
 	currentClient: {},
 
 	actions: {
@@ -21,18 +21,6 @@ export default Ember.ArrayController.extend({
 			this.get('controllers.calendar').send('setCurrentClient', client);
 			this.transitionToRoute('calendar');
 		},
-		filterClients: function(query) {
-			if (!query) {
-				this.set('filteredClients', null);
-				return;
-			}
-			var regex = new RegExp(query, 'i');
-			var filteredClients = this.get('model').filter(function(client) {
-				return client.get('name').match(regex);
-			});
-			this.set('filteredClients', filteredClients);
-		}
-
 	}
 
 });

@@ -9,7 +9,11 @@ Router.map(function() {
 	this.resource('calendar', function() {
 		this.route('info',{ path: ':id/info'});
 		this.route('new-lesson',{ path: 'new/:base_event_id'});
-		this.route('client-modal');
+		this.resource('clients', function() {
+			this.resource('client', {path: ':client_id'}, function() {
+				this.route('history');
+			});
+		});
 	});
 });
 
