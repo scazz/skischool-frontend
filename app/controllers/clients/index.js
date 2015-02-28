@@ -1,5 +1,9 @@
 export default Ember.ArrayController.extend({
+	needs: ['calendar'],
+
 	filteredClients: null,
+
+	currentClient: {},
 
 	actions: {
 		filterClients: function(query) {
@@ -13,8 +17,19 @@ export default Ember.ArrayController.extend({
 			});
 			this.set('filteredClients', filteredClients);
 		},
+
 		clientSelected: function(client) {
 			this.transitionToRoute('client',client);
+		},
+
+		addClient: function() {
+			var client = this.get('currentClient');
+			console.log("creating new client");
+			client = this.store.createRecord('client', client);
+			this.set('currentClient', client); 					// update now client has an id!
+
+			this.get('controllers.calendar').send('clientSelected', client);
+			this.transitionToRoute('calendar');
 		}
 	}
 });
