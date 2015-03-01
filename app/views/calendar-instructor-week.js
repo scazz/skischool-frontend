@@ -34,7 +34,7 @@ export default Ember.View.extend({
 
 		var lesson = events.filter(function (event) {
 			// must be our instructor
-			if (event.get('instructor') !== current_instructor) {
+			if (event.get('instructor').get('id') !== current_instructor.get('id')) {
 				return false;
 			}
 			return self.eventFallsOnTimePeriod(event, timeSpan);
