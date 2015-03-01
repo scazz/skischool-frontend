@@ -3,6 +3,7 @@ export default Ember.ObjectController.extend({
 
 	actions: {
 		deselectClient: function() {
+			this.send('unsetCurrentClient');
 			this.transitionToRoute('clients');
 		},
 

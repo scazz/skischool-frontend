@@ -10,6 +10,12 @@ export default Ember.Route.extend({
 		controller.set('timePeriods', this.generateTimePeriodsForWeek());
 	},
 
+	actions: {
+		unsetCurrentClient: function() {
+			this.controller.set('current_client', null);
+		}
+	},
+
 	generateTimePeriodsForWeek: function() {
 		var dayStart = 8;
 		var dayEnd = 17;

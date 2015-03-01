@@ -1,5 +1,9 @@
 <div>
-	{{#link-to 'clients'}}Clients{{/link-to}}
+	{{#if current_client }}
+		{{#link-to 'client' current_client}}Clients{{/link-to}}
+	{{else}}
+		{{#link-to 'clients'}}Clients{{/link-to}}
+	{{/if}}
 </div>
 
 <div>
