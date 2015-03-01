@@ -1,0 +1,29 @@
+<div class="enrollment-history model-section">
+	<div class="heading">
+		<h4>Previous bookings</h4>
+	</div>
+
+	<table class="table table-hover table-condensed">
+		<thead>
+			<th>Pupil</th>
+			<th>Instructor</th>
+			<th>Lesson Type</th>
+			<th>Level</th>
+			<th>Date</th>
+		</thead>
+
+		<tbody>
+		  {{#each enrollment in past_enrollments}}
+			  <tr>
+				  <td>{{enrollment.pupil.name}}</td>
+				  <td>{{enrollment.lesson.instructor.name}}</td>
+				  <td>{{enrollment.lesson.type}}</td>
+				  <td>{{enrollment.lesson.level}}</td>
+				  <td>{{readable-date-time enrollment.lesson.start_time}}</td>
+			  </tr>
+		  {{/each}}
+
+		</tbody>
+	</table>
+</div>
+
