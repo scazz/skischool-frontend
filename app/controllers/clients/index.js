@@ -20,6 +20,7 @@ export default Ember.ArrayController.extend({
 
 		clientSelected: function(client) {
 			this.transitionToRoute('client',client);
+			return true; // let action bubble to set on the calendar
 		},
 
 		addClient: function() {

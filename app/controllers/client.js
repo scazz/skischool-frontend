@@ -12,7 +12,6 @@ export default Ember.ObjectController.extend({
 
 			console.log("TODO: update client here");
 
-			this.get('controllers.calendar').send('clientSelected', client);
 			this.transitionToRoute('calendar');
 		}
 	}

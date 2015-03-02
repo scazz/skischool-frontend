@@ -13,6 +13,9 @@ export default Ember.Route.extend({
 	actions: {
 		unsetCurrentClient: function() {
 			this.controller.set('current_client', null);
+		},
+		clientSelected: function(client) {
+			this.controller.set('current_client', client);
 		}
 	},
 

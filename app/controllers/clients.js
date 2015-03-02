@@ -11,6 +11,8 @@ export default Ember.ArrayController.extend({
 		'saveClient': function() {
 			var client = this.get('currentClient');
 
+			//TODO: just hide if no info has been added
+
 			if (client.id) {
 				console.log("update client");
 			} else {
@@ -18,7 +20,7 @@ export default Ember.ArrayController.extend({
 				client = this.store.createRecord('client', client);
 				this.set('currentClient', client); 					// update now client has an id!
 			}
-			this.get('controllers.calendar').send('setCurrentClient', client);
+			this.send('clientSelected', client);
 			this.transitionToRoute('calendar');
 		},
 	}

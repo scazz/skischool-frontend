@@ -6,7 +6,6 @@ export default Ember.Route.extend({
 	},
 
 	setupController: function(controller) {
-		console.log("fired");
 		controller.set('currentClient', {});
 	}
 });
