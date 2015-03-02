@@ -7,8 +7,11 @@ export default Ember.ObjectController.extend({
 	}.property(),
 
 	startTime: function() {
-		console.log( this.get('model'));
 		return moment(this.get('start_time'));
+	}.property('start_time'),
+
+	date: function() {
+		return moment(this.get('start_time')).toDate();
 	}.property('start_time'),
 
 	actions: {

@@ -2,16 +2,19 @@
 
 	Lesson stuff
 
-	instructor, start time, end time, comments, level
+	instructor, start time, end time, comments, level <br />
 
-	start time: {{ pikaday-input }} {{my-datepicker }}
+	date: {{ lesson-pikaday value=date }} <br />
 
-	{{view select
+	start time: <br />
+	end time: <br />
+
+	Instructor {{view select
 		content=instructors
 		optionValuePath="content.id"
-		optionLabelPath="content.name"}}
+		optionLabelPath="content.name"}} <br />
 
-	Start time: {{startTime}}
+	Start time: {{time-picker time=startTime widthClass="w120"}}
 
     <hr>
 

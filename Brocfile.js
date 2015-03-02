@@ -23,6 +23,10 @@ app.import('bower_components/moment/moment.js');
 app.import('bower_components/pikaday/pikaday.js');
 app.import('bower_components/pikaday/css/pikaday.css');
 
+// time picker
+app.import('bower_components/bootstrap-3-timepicker/js/bootstrap-timepicker.min.js');
+app.import('bower_components/bootstrap-3-timepicker/css/bootstrap-timepicker.min.css');
+
 
 /*
  * Bootstrap
