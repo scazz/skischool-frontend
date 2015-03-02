@@ -19,11 +19,12 @@ export default Ember.ObjectController.extend({
 			var newLesson = this.store.createRecord('lesson', {
 				instructor: this.get('instructor'),
 				start_time: this.get('start_time'),
-				end_time: this.get('start_time').clone().add(2, 'hours')
+				end_time: this.get('start_time').clone().add(2, 'hours'),
+				type: 'group'
 			});
 
 			this.store.filter('calendar-event',function(event) {
-				if (event.instructor != newLesson.get('instructor')) {
+				if (event.instructor.id != newLesson.get('instructor').get('id')) {
 					return false;
 				}
 				if (event.get('start_time').isBetween( newLesson.get('start_time'), newLesson.get('end_time') )) {

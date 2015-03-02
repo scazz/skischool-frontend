@@ -19,6 +19,10 @@ var app = new EmberApp();
 
 app.import('bower_components/moment/moment.js');
 
+/* Pikaday */
+app.import('bower_components/pikaday/pikaday.js');
+app.import('bower_components/pikaday/css/pikaday.css');
+
 
 /*
  * Bootstrap

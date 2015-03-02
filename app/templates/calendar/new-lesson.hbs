@@ -1,6 +1,10 @@
 {{#bootstrap-modal title="new lesson" ok='save' close='close'}}
 
-	Book a lesson!
+	Lesson stuff
+
+	instructor, start time, end time, comments, level
+
+	start time: {{ pikaday-input }} {{my-datepicker }}
 
 	{{view select
 		content=instructors
@@ -8,5 +12,14 @@
 		optionLabelPath="content.name"}}
 
 	Start time: {{startTime}}
+
+    <hr>
+
+	if group lesson, enrollment list + overview
+
+	<hr />
+
+	add enrollment form.. ie client and pupil infomation
+
 
 {{/bootstrap-modal}}

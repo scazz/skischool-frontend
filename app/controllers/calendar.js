@@ -43,9 +43,6 @@ export default Ember.ArrayController.extend({
 			this.transitionToRoute('calendar.new-lesson', template);
 			console.log("I got this!");
 		},
-		clientSelected: function(client) {
-			this.set('current_client', client);
-		}
 	}
 
 });
