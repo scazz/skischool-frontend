@@ -40,7 +40,14 @@ export default Ember.ArrayController.extend({
 
 	actions: {
 		showNewLessonForm: function(template) {
-			this.transitionToRoute('calendar.new-lesson', template);
+			this.transitionToRoute('calendar.new-lesson',
+				{queryParams:
+					{
+						start_time: template.get('start_time').format('YYYY-MM-DD HH:mm'),
+						instructor_id: template.get('instructor').get('id')
+					}
+				}
+			);
 			console.log("I got this!");
 		},
 	}

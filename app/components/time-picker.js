@@ -1,18 +1,26 @@
 export default Ember.Component.extend({
 
-	time: null,
+	momentDateTime: null,
 
 	_initTimePicker: function() {
-		this.$('.timepicker').timepicker({
+		var timepicker = this.$('.timepicker').timepicker({
 			showSeconds: false,
 			showMeridian: false,
-			defaultTime: this.getTimeFromMomentObject(this.time)
+			defaultTime: this.get('time')
 		});
+
+		timepicker.on('changeTime.timepicker', function(e) {
+			var momentDateTime = this.get('momentDateTime');
+			momentDateTime.hours( e.time.hours);
+			momentDateTime.minutes( e.time.minutes );
+			this.set('momentDateTime', momentDateTime);
+		}.bind(this))
 	}.on('didInsertElement'),
 
-	getTimeFromMomentObject: function(time) {
-		time = moment(time);
-		return time.format('HH:mm');
-	}
+	time: function() {
+		console.log("returning...");
+		console.log(this.get('momentDateTime'));
+		return this.get('momentDateTime').format('HH:mm');
+	}.property('momentDateTime')
 
 });

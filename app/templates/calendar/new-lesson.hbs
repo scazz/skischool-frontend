@@ -6,15 +6,21 @@
 
 	date: {{ lesson-pikaday value=date }} <br />
 
-	start time: <br />
-	end time: <br />
+	start time: {{time-picker momentDateTime=startTime widthClass="w120"}} <br />
+	duration:
+	{{select-2 content=durations
+				value=duration
+				optionLabelPath="label"
+				placeholder="duration"}}<br />
 
-	Instructor {{view select
+	Instructor:
+	{{select-2
 		content=instructors
-		optionValuePath="content.id"
-		optionLabelPath="content.name"}} <br />
+		value=instructor
+		optionLabelPath="name"}} <br />
 
-	Start time: {{time-picker time=startTime widthClass="w120"}}
+	{{ instructor }}
+
 
     <hr>
 

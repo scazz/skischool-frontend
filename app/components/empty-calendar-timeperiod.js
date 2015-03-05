@@ -7,7 +7,5 @@ export default Ember.Component.extend({
 
 	click: function() {
 		this.sendAction('createNewLessonAction', this.get('template'));
-		console.log("you clicked me!");
-		console.log( this.get('template'));
 	}
 });

@@ -2,9 +2,24 @@ export default Ember.ObjectController.extend({
 
 	needs: ['calendar'],
 
-	instructors: function() {
-		return this.store.find('instructor');
+	queryParams: ['instructor_id', 'start_time'],
+	instructor: null,
+	instructor_id: null,
+	start_time: null,
+	duration: null,
+	instructors: null,
+
+	durations: function() {
+		return this.store.find('lesson-durations');
 	}.property(),
+
+	//instructors: function() {
+	//	return this.store.find('instructor').then(function(instructorPromise) {
+	//		console.log(instructorPromise);
+	//		console.log(instructorPromise.content);
+	//		return instructorPromise.content;
+	//	});
+	//}.property(),
 
 	startTime: function() {
 		return moment(this.get('start_time'));
@@ -14,6 +29,8 @@ export default Ember.ObjectController.extend({
 		return moment(this.get('start_time')).toDate();
 	}.property('start_time'),
 
+
+
 	actions: {
 		close: function(){
 			this.transitionToRoute('calendar');
@@ -21,10 +38,12 @@ export default Ember.ObjectController.extend({
 		save: function() {
 			var newLesson = this.store.createRecord('lesson', {
 				instructor: this.get('instructor'),
-				start_time: this.get('start_time'),
-				end_time: this.get('start_time').clone().add(2, 'hours'),
+				start_time: this.get('startTime'),
+				end_time: this.get('startTime').clone().add( this.get('duration').get('hours'), 'hours'),
 				type: 'group'
 			});
+
+			console.log(newLesson);
 
 			this.store.filter('calendar-event',function(event) {
 				if (event.instructor.id != newLesson.get('instructor').get('id')) {
@@ -40,6 +59,8 @@ export default Ember.ObjectController.extend({
 
 			}).then(function(events){
 				events.forEach(function(event) {
+
+					console.log(event);
 					event.set('lesson', newLesson);
 				});
 			});
