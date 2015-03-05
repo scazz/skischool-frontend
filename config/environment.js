@@ -23,7 +23,7 @@ module.exports = function(environment) {
 		'script-src': "'self' 'unsafe-eval'",
 		  //   'font-src': "'self' fonts.gstatic.com",
 		  //   'connect-src': "'self' justinbull.ca",
-		  //   'img-src': "'self' s.gravatar.com",
+	    'img-src': "'self' data:",
 		'style-src': "'self' 'unsafe-inline'",
 		  //   'media-src': "'self'",
 		  //   'frame-src': "'self' www.youtube.com"
