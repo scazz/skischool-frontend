@@ -1,35 +1,55 @@
+import Ember from 'ember';
+
 export default Ember.ObjectController.extend({
 
 	needs: ['calendar'],
 
-	queryParams: ['instructor_id', 'start_time'],
+	queryParams: ['instructor_id', {startingDateTimeStr: 'time'}],
 	instructor: null,
 	instructor_id: null,
-	start_time: null,
-	duration: null,
+	startingDateTimeStr: null,			//query param - human readable, used to set startingDateTime on controller setup
+	startingDateTime: null,				//internal state. date() and time() used to get/set. startTime used to get
+
+	duration: function() {
+		// TODO: this should just be a promise
+		return this.get('durations') ? this.get('durations').content[0] : null ;
+	}.property('durations'),
 	instructors: null,
 
-	durations: function() {
-		return this.store.find('lesson-durations');
-	}.property(),
-
-	//instructors: function() {
-	//	return this.store.find('instructor').then(function(instructorPromise) {
-	//		console.log(instructorPromise);
-	//		console.log(instructorPromise.content);
-	//		return instructorPromise.content;
-	//	});
-	//}.property(),
+	durations: null,
 
 	startTime: function() {
-		return moment(this.get('start_time'));
-	}.property('start_time'),
+		return moment(this.get('startingDateTime')).clone();
+	}.property('startingDateTime'),
 
-	date: function() {
-		return moment(this.get('start_time')).toDate();
-	}.property('start_time'),
+	date: function(key, value) {
+		// setter
+		if (arguments.length > 1) {
+			var newDate = moment(value);
+			console.log("new date");
+			console.log(newDate);
 
+			var start_time =this.get('startTime');
 
+			start_time.year ( newDate.year() );
+			start_time.month ( newDate.month() );
+			start_time.date( newDate.date() );
+
+			this.set('startingDateTime', start_time);
+		}
+
+		return this.get('startTime').toDate();
+	}.property('startTime'),
+
+	time: function(key, value) {
+		if (arguments.length > 1) {
+			var time = this.get('startTime');
+			time.hours(value.hours);
+			time.minutes(value.minutes);
+			this.set('startingDateTime', time);
+		}
+		return this.get('startTime').format('HH:mm');
+	}.property('startTime'),
 
 	actions: {
 		close: function(){
@@ -46,7 +66,7 @@ export default Ember.ObjectController.extend({
 			console.log(newLesson);
 
 			this.store.filter('calendar-event',function(event) {
-				if (event.instructor.id != newLesson.get('instructor').get('id')) {
+				if (event.instructor.id !== newLesson.get('instructor').get('id')) {
 					return false;
 				}
 				if (event.get('start_time').isBetween( newLesson.get('start_time'), newLesson.get('end_time') )) {

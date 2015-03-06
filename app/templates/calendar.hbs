@@ -11,6 +11,8 @@
 </div>
 
 <div class="calendar">
+	{{calendar-day-headings weekStart=week_start}}
+
 	{{#each instructor in instructors}}
 		{{ view calendar-instructor-week instructor=instructor}}
 	{{/each}}

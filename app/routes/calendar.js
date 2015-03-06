@@ -7,7 +7,8 @@ export default Ember.Route.extend({
 		controller.set('model', model);
 		controller.set('lessons', this.store.find('lesson'));
 		//controller.set('')
-		controller.set('timePeriods', this.generateTimePeriodsForWeek());
+		var weekStart = controller.get('week_start');
+		controller.set('timePeriods', this.generateTimePeriodsForWeek(weekStart));
 	},
 
 	actions: {
@@ -19,11 +20,10 @@ export default Ember.Route.extend({
 		}
 	},
 
-	generateTimePeriodsForWeek: function() {
+	generateTimePeriodsForWeek: function(weekStart) {
 		var dayStart = 8;
 		var dayEnd = 17;
 		var calendarDisplayPeriod = moment.duration(1, "hour" );
-		var weekStart = moment().startOf('week');
 		var currentTimePeriodStart = weekStart.clone().add(dayStart, 'hours');
 		var workingWeekEnd = moment().endOf('week');
 
@@ -40,7 +40,7 @@ export default Ember.Route.extend({
 			currentTimePeriodStart.add( calendarDisplayPeriod  );
 
 			// we need to skip from today to tomorrow
-			if (currentTimePeriodStart.hours() > dayEnd) {
+			if (currentTimePeriodStart.hours() >= dayEnd) {
 				currentTimePeriodStart.add(1, "day").hours( dayStart );
 			}
 		}

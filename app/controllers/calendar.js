@@ -8,6 +8,10 @@ export default Ember.ArrayController.extend({
 		return this.store.find('instructor');
 	}.property(),
 
+	week_start: function() {
+		return  moment().startOf('week');
+	}.property(),
+
 	lessons: undefined,
 
 	timePeriods: undefined,
@@ -43,7 +47,7 @@ export default Ember.ArrayController.extend({
 			this.transitionToRoute('calendar.new-lesson',
 				{queryParams:
 					{
-						start_time: template.get('start_time').format('YYYY-MM-DD HH:mm'),
+						startingDateTimeStr: template.get('start_time').format('YYYY-MM-DD HH:mm'),
 						instructor_id: template.get('instructor').get('id')
 					}
 				}
