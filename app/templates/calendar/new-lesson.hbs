@@ -1,8 +1,6 @@
 {{#bootstrap-modal title="new lesson" ok='save' close='close'}}
 
-	Lesson stuff
-
-	instructor, start time, end time, comments, level <br />
+	Lesson stuff - comments, level <br />
 
 	date: {{ lesson-pikaday value=date }} <br />
 
@@ -19,8 +17,6 @@
 		value=instructor
 		optionLabelPath="name"}} <br />
 
-	{{ instructor }}
-
 
     <hr>
 
@@ -28,7 +24,7 @@
 
 	<hr />
 
-	add enrollment form.. ie client and pupil infomation
+	{{ find-create-client }}
 
 
 {{/bootstrap-modal}}
