@@ -24,7 +24,18 @@
 
 	<hr />
 
-	{{ find-create-client }}
+	{{#if client.id}}
+		{{edit-client client=client}}
+	{{else}}
+		{{ find-create-client clients=clients currentClient=client }}
+	{{/if}}
 
+	<hr />
+
+	{{#if client.id}}
+		{{select-2 content=pupils value=pupil optionLabelPath="name" placeholder="Previous pupils" allowClear=true}}
+	{{/if}}
+
+	{{pupil-edit pupil=pupil}}
 
 {{/bootstrap-modal}}

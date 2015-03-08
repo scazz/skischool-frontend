@@ -48,7 +48,8 @@ export default Ember.ArrayController.extend({
 				{queryParams:
 					{
 						startingDateTimeStr: template.get('start_time').format('YYYY-MM-DD HH:mm'),
-						instructor_id: template.get('instructor').get('id')
+						instructor_id: template.get('instructor').get('id'),
+						client_id: this.get('current_client') ? this.get('current_client').id : null
 					}
 				}
 			);

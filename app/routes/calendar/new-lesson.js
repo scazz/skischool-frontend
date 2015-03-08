@@ -18,5 +18,17 @@ export default Ember.Route.extend({
 				controller.set('instructor', instructor);
 			});
 		}
+
+		if ( controller.get('client_id')) {
+			this.store.find('client', controller.get('client_id')).then(function(client) {
+				controller.set('client', client);
+			});
+		} else {
+			controller.set('client', {})
+		}
+
+		this.store.find('client').then(function(clients) {
+			controller.set('clients', clients)
+		});
 	}
 });
