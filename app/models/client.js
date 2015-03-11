@@ -4,7 +4,7 @@ var client = DS.Model.extend({
 
 	name: DS.attr('string'),
 	first_name: DS.attr('string'),
-	email: DS.attr('email'),
+	email: DS.attr('string'),
 	telephone_1: DS.attr('string'),
 	telephone_2: DS.attr('string'),
 
@@ -17,14 +17,7 @@ var client = DS.Model.extend({
 
 client.reopenClass({
 	FIXTURES: [
-		{
-			id: 1,
-			name: "Punter",
-			first_name: "Richy",
-			email: "richy@punter.com",
-			telephone_1: "+41 077837930",
-			telephone_2: "+41 077837930"
-		},
+
 	]
 });
 

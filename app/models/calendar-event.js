@@ -6,9 +6,4 @@ var calendarEvent = DS.Model.extend({
 });
 
 
-calendarEvent.reopenClass({
-	FIXTURES: [
-	]
-});
-
 export default calendarEvent;

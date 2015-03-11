@@ -12,23 +12,7 @@ var lesson = DS.Model.extend({
 
 lesson.reopenClass({
 	FIXTURES: [
-		{
-			id: 1,
-			instructor: 1,
-			type: "group",
-			start_time: moment().startOf('week').hours(10),
-			end_time:   moment().startOf('week').hours(12),
-			level: 	"2",
-			enrollments: [1,2]
-		},
-		{
-			id: 2,
-			instructor: 1,
-			type: "group",
-			start_time: moment().startOf('week').hours(15),
-			end_time: moment().startOf('week').hours(17),
-			level: "3",
-		}
+
 	]
 });
 

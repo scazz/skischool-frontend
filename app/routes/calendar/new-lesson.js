@@ -7,7 +7,7 @@ export default Ember.Route.extend({
 
 		controller.set('startingDateTime', moment(controller.get('startingDateTimeStr')));
 
-		this.store.find('lesson-durations').then( function(durations) {
+		this.store.find('lesson-duration').then( function(durations) {
 			controller.set('durations', durations);
 		});
 
