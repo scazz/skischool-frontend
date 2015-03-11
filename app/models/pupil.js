@@ -1,3 +1,5 @@
+import DS from "ember-data";
+
 var pupil = DS.Model.extend({
 	name: DS.attr('string'),
 	age: DS.attr('number'),

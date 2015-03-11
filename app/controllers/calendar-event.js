@@ -1,7 +1,9 @@
+import Ember from "ember";
+
 export default Ember.ObjectController.extend({
 
-	hasLesson: function(key, value){
-		return this.get('lesson') != undefined ;
+	hasLesson: function(){
+		return this.get('lesson') !== undefined ;
 	}.property('lesson'),
 
 	theid: function() {

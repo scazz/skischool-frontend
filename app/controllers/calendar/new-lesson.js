@@ -23,12 +23,12 @@ export default Ember.ObjectController.extend({
 	durations: null,
 
 
-	pupilFinder: function() {
+	pupilFilter: function() {
 
 		this.store.find('pupil').then( function(pupils) {
 			return pupils.filter( function() {
 				return true;
-			})
+			});
 		}).then(function(pupils) {
 			this.set('pupils', pupils);
 		}.bind(this));
@@ -36,7 +36,7 @@ export default Ember.ObjectController.extend({
 	}.observes('client'),
 
 	pupils: null,
-	pupil: null,
+	pupil: {},
 
 
 	startTime: function() {
@@ -90,13 +90,19 @@ export default Ember.ObjectController.extend({
 				client = this.store.createRecord('client', client);
 			}
 
+			var pupil = this.get('pupil');
+			if (! pupil.id) {
+				pupil = this.store.createRecord('pupil', pupil);
+			}
+
 			var enrollment = this.store.createRecord('enrollment', {
 				lesson: newLesson,
 				client: client,
-				pupil: null
+				pupil: pupil
 			});
 
 			console.log(newLesson);
+			console.log(enrollment);
 
 			this.store.filter('calendar-event',function(event) {
 				if (event.instructor.id !== newLesson.get('instructor').get('id')) {

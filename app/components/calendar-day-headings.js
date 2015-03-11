@@ -1,3 +1,5 @@
+import Ember from "ember";
+
 export default Ember.Component.extend({
 
 	weekStart: moment().startOf('week'),
@@ -16,6 +18,4 @@ export default Ember.Component.extend({
 
 		return days;
 	}.property('weekStart')
-
-
-})
+});

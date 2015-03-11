@@ -1,3 +1,5 @@
+import Ember from "ember";
+
 export default Ember.Route.extend({
 
 	setupController: function(controller,model) {
@@ -24,11 +26,11 @@ export default Ember.Route.extend({
 				controller.set('client', client);
 			});
 		} else {
-			controller.set('client', {})
+			controller.set('client', {});
 		}
 
 		this.store.find('client').then(function(clients) {
-			controller.set('clients', clients)
+			controller.set('clients', clients);
 		});
 	}
 });

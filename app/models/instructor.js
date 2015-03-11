@@ -1,4 +1,4 @@
-import Ember from "ember";
+import DS from "ember-data";
 
 var instructor = DS.Model.extend({
 

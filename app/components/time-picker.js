@@ -1,3 +1,5 @@
+import Ember from "ember";
+
 export default Ember.Component.extend({
 
 	time: null,
@@ -12,7 +14,7 @@ export default Ember.Component.extend({
 
 		timepicker.on('changeTime.timepicker', function(e) {
 			this.set('time', e.time);
-		}.bind(this))
+		}.bind(this));
 	}.on('didInsertElement'),
 
 	//time: function() {

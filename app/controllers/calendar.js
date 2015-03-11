@@ -1,5 +1,4 @@
 import Ember from "ember";
-import CalendarEvent from "../models/calendar-event.js";
 
 export default Ember.ArrayController.extend({
 	//needs: ['instructors', 'lessons'],

@@ -1,5 +1,4 @@
 import Ember from "ember";
-import CalendarController from "../controllers/calendar.js";
 
 
 export default Ember.View.extend({

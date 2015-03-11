@@ -1,3 +1,5 @@
+import DS from "ember-data";
+
 var client = DS.Model.extend({
 
 	name: DS.attr('string'),

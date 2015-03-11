@@ -1,7 +1,4 @@
 import Ember from "ember";
-import CalendarEntry from "../models/calendar-event.js";
-import TimePeriod from "../models/timePeriod.js";
-
 
 export default Ember.View.extend({
 	templateName: 'calendar-instructor-week',
