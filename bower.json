@@ -17,6 +17,7 @@
     "bootstrap": "~3.3.2",
     "pikaday": "~1.3.2",
     "bootstrap-3-timepicker": "~0.2.8",
-    "select2": "~3.5.2"
+    "select2": "~3.5.2",
+    "pretender": "0.1.0"
   }
 }
