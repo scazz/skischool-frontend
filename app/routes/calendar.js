@@ -14,6 +14,19 @@ export default Ember.Route.extend({
 	},
 
 	actions: {
+		selectLesson: function(selectedLesson) {
+			console.log("something");
+			console.log(this.controller.get('lessons'));
+			this.controller.get('lessons').forEach(function(lesson) {
+				if ( lesson === selectedLesson ) {
+					lesson.set('isSelected', true);
+				}
+				else if (lesson.isSelected) {
+					lesson.set('isSelected', false);
+				}
+			});
+		},
+
 		unsetCurrentClient: function() {
 			this.controller.set('current_client', null);
 		},

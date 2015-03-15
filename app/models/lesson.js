@@ -6,7 +6,9 @@ var lesson = DS.Model.extend({
 	start_time: DS.attr(),
 	end_time: DS.attr(),
 	level: DS.attr('string'),
-	enrollments: DS.hasMany('enrollment', {async: true})
+	enrollments: DS.hasMany('enrollment', {async: true}),
+
+	isSelected: false,
 });
 
 
