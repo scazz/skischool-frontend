@@ -13,15 +13,14 @@ export default Ember.Component.extend({
 
 	showLessonInfoAction: 'showLessonInfo',
 	selectLessonAction: 'selectLesson',
+	editLessonAction: 'showEditLessonForm',
 
 	click: function() {
 		if ( this.get('isSelected') === false) {
 			this.sendAction('selectLessonAction', this.get('lesson'));
-			//this.set('lesson.isSelected', true);
 			this.sendAction('showLessonInfoAction', this.get('lesson'));
 		} else {
-			console.log( this.get('lesson'));
-			console.log("trying to edit a lesson!");
+			this.sendAction('editLessonAction', this.get('lesson'));
 		}
 
 	}

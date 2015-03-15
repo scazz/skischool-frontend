@@ -12,14 +12,14 @@ module('Acceptance: EditLesson', {
   }
 });
 
-test('Clicking an unselected lesson marks it as selected', function() {
+test('Clicking lessons marks them as selected', function() {
 	var firstLessonBlock1;
 	visit('/calendar');
 
 	andThen(function() {
 	  firstLessonBlock1 = find('.lesson:eq(0)');
 	  equal( firstLessonBlock1.hasClass('lesson-highlighted'), false, "Lesson's default state is not highlighted" );
-  });
+    });
 
 	click('.lesson:eq(0)');
 
@@ -35,4 +35,14 @@ test('Clicking an unselected lesson marks it as selected', function() {
 	andThen(function() {
 		ok(! firstLessonBlock1.hasClass('lesson-highlighted'), "First lesson is deselected when a different lesson is clicked");
 	})
+});
+
+test('double clicking a lesson opens edit lesson modal', function() {
+	visit('/calendar');
+	click('.lesson:eq(0)');
+	click('.lesson:eq(0)');
+
+	andThen(function() {
+		equal(currentPath(), 'calendar.edit-lesson');
+	});
 });
