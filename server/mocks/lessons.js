@@ -2,6 +2,9 @@
 module.exports = function(app) {
   var express = require('express');
   var lessonsRouter = express.Router();
+	var bodyParser = require('body-parser')
+	app.use( bodyParser.json() );       // to support JSON-encoded bodies
+
 	var moment = require('../../bower_components/moment/moment');
 
 	var LESSONS = [
@@ -31,7 +34,19 @@ module.exports = function(app) {
   });
 
   lessonsRouter.post('/', function(req, res) {
-    res.status(201).end();
+    console.log(req.body);
+
+	  var lesson = {
+		  id: LESSONS.length+1,
+		  start_time: req.body.lesson.start_time,
+		  end_time: req.body.lesson.end_time,
+		  instructor: req.body.lesson.instructor_id,
+		  type: req.body.lesson.type
+	  };
+
+	  LESSONS.push( lesson );
+
+		res.send( {'lesson': lesson });
   });
 
   lessonsRouter.get('/:id', function(req, res) {

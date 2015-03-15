@@ -1,41 +1,52 @@
 {{#bootstrap-modal title="new lesson" ok='save' close='close'}}
+	<div class="lesson-form">
 
-	Lesson stuff - comments, level <br />
+		Lesson stuff - comments, level <br />
 
-	date: {{ lesson-pikaday value=date }} <br />
+		Type: {{ select-2 content=lessonTypes value=lessonType optionLabelPath="type" placeholder="Lesson type" cssClass="lesson-type"}}
 
-	start time: {{time-picker time=time widthClass="w120"}} <br />
-	duration:
-	{{select-2 content=durations
-				value=duration
-				optionLabelPath="label"
-				placeholder="duration"}}<br />
+		date: {{ lesson-pikaday value=date }} <br />
 
-	Instructor:
-	{{select-2
-		content=instructors
-		value=instructor
-		optionLabelPath="name"}} <br />
+		start time: {{time-picker time=time widthClass="w120"}} <br />
+		duration:
+		{{select-2 content=durations
+					value=duration
+					optionLabelPath="label"
+					placeholder="duration"}}<br />
+
+		Instructor:
+		{{select-2
+			content=instructors
+			value=instructor
+			optionLabelPath="name"}} <br />
 
 
-    <hr>
+		<hr>
 
-	if group lesson, enrollment list + overview
+        <div class="pupil-list">
+			{{ enrolled_pupils }}
+			{{#each pupil in enrolled_pupils}}
+				<div class="pupil">{{pupil.name}}</div>
+			{{/each}}
+        </div>
 
-	<hr />
 
-	{{#if client.id}}
-		{{edit-client client=client}}
-	{{else}}
-		{{ find-create-client clients=clients currentClient=client }}
-	{{/if}}
+		<hr />
 
-	<hr />
+		{{#if client.id}}
+			{{edit-client client=client}}
+		{{else}}
+			{{ find-create-client clients=clients currentClient=client }}
+		{{/if}}
 
-	{{#if client.id}}
-		{{select-2 content=pupils value=pupil optionLabelPath="name" placeholder="Previous pupils" allowClear=true}}
-	{{/if}}
+		<hr />
 
-	{{pupil-edit pupil=pupil}}
+		{{#if client.id}}
+			{{select-2 content=pupils value=pupil optionLabelPath="name" placeholder="Previous pupils" allowClear=true}}
+		{{/if}}
 
+		{{pupil-edit pupil=pupil}}
+
+		<button {{action "addPupil"}} class="add-pupil">+</button>
+    </div>
 {{/bootstrap-modal}}

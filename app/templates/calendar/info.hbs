@@ -3,10 +3,14 @@
 have some lesson info - {{this}} {{id}} {{type}} {{readableStartTime}} {{isGroupEvent}}
 <br />
 <br />
+<div class="pupil-list">
 {{#each enrollment in enrollments}}
-	Booked by: {{enrollment.client.name}} <br />
-	Pupil name: {{enrollment.pupil.name}} <br />
-	Age: {{enrollment.pupil.age}} <br /><br />
+	<div class="pupil">
+		Booked by: {{enrollment.client.name}} <br />
+		Pupil name: {{enrollment.pupil.name}} <br />
+		Age: {{enrollment.pupil.age}} <br />
+	</div>
 {{/each}}
+</div>
 
 </div>

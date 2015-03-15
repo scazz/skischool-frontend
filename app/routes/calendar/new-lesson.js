@@ -5,6 +5,21 @@ export default Ember.Route.extend({
 	setupController: function(controller,model) {
 		this._super(controller,model);
 
+		controller.set('lessonTypes', [
+			{
+				id: 1,
+				type: "Group"
+			},
+			{
+				id: 2,
+				type: "Private"
+			}
+		]);
+
+		controller.set('enrolled_pupils', Ember.A([]));
+		controller.set('pupil', {});
+
+
 		controller.set('startingDateTime', moment(controller.get('startingDateTimeStr')));
 
 		this.store.find('lesson-duration').then( function(durations) {

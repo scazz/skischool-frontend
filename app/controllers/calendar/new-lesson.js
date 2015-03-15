@@ -11,6 +11,9 @@ export default Ember.ObjectController.extend({
 	startingDateTimeStr: null,			//query param - human readable, used to set startingDateTime on controller setup
 	startingDateTime: null,				//internal state. date() and time() used to get/set. startTime used to get
 
+	lessonType: null,
+	lessonTypes: [],
+
 	client: {},
 	clients: null,			//TODO: currently we pass *every* client into find-clients component. The search should be handled on the server.
 
@@ -37,6 +40,7 @@ export default Ember.ObjectController.extend({
 
 	pupils: null,
 	pupil: {},
+	enrolled_pupils: Ember.A([]),
 
 
 	startTime: function() {
@@ -76,6 +80,11 @@ export default Ember.ObjectController.extend({
 		clientSelected: function(client) {
 			this.set('client', client);
 		},
+		addPupil: function() {
+			var pupil = this.get('pupil');
+			this.get('enrolled_pupils').pushObject( pupil );
+			this.set('pupil', {});
+		},
 		save: function() {
 			var newLesson = this.store.createRecord('lesson', {
 				instructor: this.get('instructor'),
@@ -83,26 +92,36 @@ export default Ember.ObjectController.extend({
 				end_time: this.get('startTime').clone().add( this.get('duration').get('hours'), 'hours'),
 				type: 'group'
 			});
+			newLesson.save();
 
 			var client = this.get('client');
-			console.log(client);
 			if (! client.id) {
 				client = this.store.createRecord('client', client);
+				client.save();
 			}
 
-			var pupil = this.get('pupil');
-			if (! pupil.id) {
-				pupil = this.store.createRecord('pupil', pupil);
-			}
+			var pupils = this.get('enrolled_pupils');
+			pupils.pushObject( this.get('pupil'));
 
-			var enrollment = this.store.createRecord('enrollment', {
-				lesson: newLesson,
-				client: client,
-				pupil: pupil
-			});
+			pupils.forEach(function(pupil) {
+				if (! pupil.id) {
+					pupil = this.store.createRecord('pupil', pupil);
 
-			console.log(newLesson);
-			console.log(enrollment);
+					pupil.save().then( function() {
+						var enrollment = this.store.createRecord('enrollment', {
+							lesson: newLesson,
+							client: client,
+							pupil: pupil
+						});
+						enrollment.save();
+					}.bind(this));
+				}
+
+
+			}.bind(this));
+
+
+
 
 			this.store.filter('calendar-event',function(event) {
 				if (event.instructor.id !== newLesson.get('instructor').get('id')) {
@@ -122,7 +141,9 @@ export default Ember.ObjectController.extend({
 					console.log(event);
 					event.set('lesson', newLesson);
 				});
-			});
+
+				this.transitionToRoute('calendar');
+			}.bind(this));
 
 		}
 	}

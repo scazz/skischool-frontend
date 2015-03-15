@@ -54,6 +54,9 @@ export default Ember.ArrayController.extend({
 			);
 			console.log("I got this!");
 		},
+		showLessonInfo: function(lesson) {
+			this.transitionToRoute('calendar.info', lesson );
+		}
 	}
 
 });

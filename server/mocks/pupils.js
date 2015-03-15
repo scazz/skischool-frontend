@@ -1,6 +1,8 @@
 module.exports = function(app) {
   var express = require('express');
   var pupilsRouter = express.Router();
+	var bodyParser = require('body-parser')
+	app.use( bodyParser.json() );       // to support JSON-encoded bodies
 
 	var PUPILS = [
 		{
@@ -24,7 +26,15 @@ module.exports = function(app) {
   });
 
   pupilsRouter.post('/', function(req, res) {
-    res.status(201).end();
+	  var pupil = {
+		  id: PUPILS.length+1,
+		  name: req.body.pupil.name,
+		  age: req.body.pupil.age
+	  };
+
+	  PUPILS.push( pupil );
+
+	  res.send( {'pupil': pupil });
   });
 
   pupilsRouter.get('/:id', function(req, res) {
