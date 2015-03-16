@@ -18,7 +18,7 @@ module.exports = function(app) {
 
   lessonDurationsRouter.get('/', function(req, res) {
     res.send({
-      'lesson-durations': DURATIONS
+      'lesson-duration': DURATIONS
     });
   });
 
@@ -28,9 +28,7 @@ module.exports = function(app) {
 
   lessonDurationsRouter.get('/:id', function(req, res) {
     res.send({
-      'lesson-durations': {
-        id: req.params.id
-      }
+      'lesson-durations': DURATIONS[ req.params.id-1 ]
     });
   });
 

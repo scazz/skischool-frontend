@@ -5,6 +5,7 @@ var lesson = DS.Model.extend({
 	type: DS.attr('string'),
 	start_time: DS.attr(),
 	end_time: DS.attr(),
+	duration: DS.belongsTo('lesson-duration', {async: true}),
 	level: DS.attr('string'),
 	enrollments: DS.hasMany('enrollment', {async: true}),
 

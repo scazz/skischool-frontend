@@ -52,10 +52,8 @@ export default Ember.ArrayController.extend({
 					}
 				}
 			);
-			console.log("I got this!");
 		},
 		showEditLessonForm: function(lesson) {
-			console.log("caught");
 			this.transitionToRoute('calendar.edit-lesson', lesson);
 		},
 		showLessonInfo: function(lesson) {

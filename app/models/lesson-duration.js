@@ -7,9 +7,6 @@ var duration = DS.Model.extend({
 
 
 duration.reopenClass({
-	FIXTURES: [
-
-	]
 });
 
 export default duration;

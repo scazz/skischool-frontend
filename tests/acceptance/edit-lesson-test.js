@@ -1,5 +1,11 @@
 import Ember from 'ember';
 import startApp from '../helpers/start-app';
+import QUnit from "qunit";
+
+QUnit.assert.contains = function( needle, haystack, message ) {
+	var actual = haystack.indexOf(needle) > -1;
+	this.push(actual, haystack, needle, message);
+};
 
 var application;
 
@@ -34,15 +40,20 @@ test('Clicking lessons marks them as selected', function() {
 
 	andThen(function() {
 		ok(! firstLessonBlock1.hasClass('lesson-highlighted'), "First lesson is deselected when a different lesson is clicked");
-	})
+	});
 });
 
 test('double clicking a lesson opens edit lesson modal', function() {
+	var instructorName = "Jimmy";
 	visit('/calendar');
 	click('.lesson:eq(0)');
 	click('.lesson:eq(0)');
 
 	andThen(function() {
 		equal(currentPath(), 'calendar.edit-lesson');
+		QUnit.assert.contains(  instructorName, find('.lesson-form .instructor').text(), "The correct instructor is selected" );
+
+		equal( find('.lesson-form .start-time').val(), "10:00", "Start time should be 10:00");
 	});
+
 });

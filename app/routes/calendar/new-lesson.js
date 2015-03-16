@@ -2,6 +2,10 @@ import Ember from "ember";
 
 export default Ember.Route.extend({
 
+	model: function() {
+		return this.store.createRecord('lesson', {});
+	},
+
 	setupController: function(controller,model) {
 		this._super(controller,model);
 
@@ -20,7 +24,7 @@ export default Ember.Route.extend({
 		controller.set('pupil', {});
 
 
-		controller.set('startingDateTime', moment(controller.get('startingDateTimeStr')));
+		controller.set('model.start_time', moment(controller.get('startingDateTimeStr')));
 
 		this.store.find('lesson-duration').then( function(durations) {
 			controller.set('durations', durations);
@@ -32,7 +36,7 @@ export default Ember.Route.extend({
 
 		if ( controller.get('instructor_id')) {
 			this.store.find('instructor', controller.get('instructor_id')).then( function(instructor) {
-				controller.set('instructor', instructor);
+				controller.set('model.instructor', instructor);
 			});
 		}
 

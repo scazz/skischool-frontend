@@ -5,11 +5,11 @@ export default Ember.ObjectController.extend({
 	needs: ['calendar'],
 
 	queryParams: ['instructor_id', 'client_id', {startingDateTimeStr: 'time'}],
-	instructor: null,
+	//instructor: null,
 	instructor_id: null,
 	client_id: null,
 	startingDateTimeStr: null,			//query param - human readable, used to set startingDateTime on controller setup
-	startingDateTime: null,				//internal state. date() and time() used to get/set. startTime used to get
+//	startingDateTime: null,				//internal state. date() and time() used to get/set. startTime used to get
 
 	lessonType: null,
 	lessonTypes: [],
@@ -44,8 +44,8 @@ export default Ember.ObjectController.extend({
 
 
 	startTime: function() {
-		return moment(this.get('startingDateTime')).clone();
-	}.property('startingDateTime'),
+		return moment(this.get('model.start_time')).clone();
+	}.property('model.start_time'),
 
 	date: function(key, value) {
 		// setter

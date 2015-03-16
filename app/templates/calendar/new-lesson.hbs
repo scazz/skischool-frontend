@@ -7,18 +7,19 @@
 
 		date: {{ lesson-pikaday value=date }} <br />
 
-		start time: {{time-picker time=time widthClass="w120"}} <br />
+		start time: {{time-picker time=time widthClass="w120" cssClass="start-time"}} <br />
 		duration:
 		{{select-2 content=durations
-					value=duration
+					value=model.duration
 					optionLabelPath="label"
 					placeholder="duration"}}<br />
 
 		Instructor:
 		{{select-2
 			content=instructors
-			value=instructor
-			optionLabelPath="name"}} <br />
+			value=model.instructor
+			optionLabelPath="name"
+			cssClass="instructor"}} <br />
 
 
 		<hr>

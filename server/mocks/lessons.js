@@ -13,7 +13,8 @@ module.exports = function(app) {
 			instructor: 1,
 			type: "group",
 			start_time: moment().startOf('week').hours(10),
-			end_time:   moment().startOf('week').hours(12),
+			end_time:   moment().startOf('week').hours(13),
+			duration: 2,
 			level: 	"2",
 			enrollments: [1,2]
 		},
@@ -23,6 +24,7 @@ module.exports = function(app) {
 			type: "group",
 			start_time: moment().startOf('week').hours(15),
 			end_time: moment().startOf('week').hours(17),
+			duration: 1,
 			level: "3",
 		}
 	];
