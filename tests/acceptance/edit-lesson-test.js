@@ -36,7 +36,7 @@ test('Clicking lessons marks them as selected', function() {
 		ok( firstLessonBlock2.hasClass('lesson-highlighted'), "Other time periods representing lesson become highlighted");
 	});
 
-	click('.lesson:eq(2)');
+	click('.lesson:eq(4)');
 
 	andThen(function() {
 		ok(! firstLessonBlock1.hasClass('lesson-highlighted'), "First lesson is deselected when a different lesson is clicked");
@@ -54,6 +54,8 @@ test('double clicking a lesson opens edit lesson modal', function() {
 		QUnit.assert.contains(  instructorName, find('.lesson-form .instructor').text(), "The correct instructor is selected" );
 
 		equal( find('.lesson-form .start-time').val(), "10:00", "Start time should be 10:00");
+		var pupils = find('.pupil-list .pupil');
+		equal(pupils.length, 2, "2 pupils were added to the lesson");
 	});
 
 });

@@ -81,56 +81,79 @@ export default Ember.ObjectController.extend({
 			this.set('client', client);
 		},
 		addPupil: function() {
-			var pupil = this.get('pupil');
-			this.get('enrolled_pupils').pushObject( pupil );
-			this.set('pupil', {});
-		},
-		save: function() {
-			var newLesson = this.store.createRecord('lesson', {
-				instructor: this.get('instructor'),
-				start_time: this.get('startTime'),
-				end_time: this.get('startTime').clone().add( this.get('duration').get('hours'), 'hours'),
-				type: 'group'
-			});
-			newLesson.save();
+			//var pupil = this.get('pupil');
+			//this.get('enrolled_pupils').pushObject( pupil );
+			//this.set('pupil', {});
 
-			var client = this.get('client');
-			if (! client.id) {
+			var pupil = this.get('pupil');
+			var client = this.get('client'); 	// we need some validation here
+
+			if (! client.hasOwnProperty('id')) {
+				console.log("creating client");
 				client = this.store.createRecord('client', client);
-				client.save();
+				this.set('client', client);
 			}
 
-			var pupils = this.get('enrolled_pupils');
-			pupils.pushObject( this.get('pupil'));
+			if (! pupil.id ) {
+				pupil = this.store.createRecord('pupil', pupil);
+			}
 
-			pupils.forEach(function(pupil) {
-				if (! pupil.id) {
+			this.store.createRecord('enrollment', {
+				lesson: this.get('model'),
+				client: client,
+				pupil: pupil
+			});
+			//reset our pupil
+			this.set('pupil', {});
+
+		},
+		save: function() {
+			var lesson = this.get('model');
+			lesson.set('end_time', this.get('startTime').add( this.get('duration').get('hours'), 'hours'));
+			lesson.set('type', "group");
+
+			/*
+			 * Works fine for private lessons
+			 */
+			var client = this.get('client');
+			if (! client.hasOwnProperty('id')) {
+				console.log("creating client");
+				client = this.store.createRecord('client', client);
+				this.set('client', client);
+			}
+
+			var pupil = this.get('pupil');
+			if ( pupil.name ) {
+				if (! pupil.hasOwnProperty('id')) {
+					console.log("pupil has just been created with create record");
 					pupil = this.store.createRecord('pupil', pupil);
-
-					pupil.save().then( function() {
-						var enrollment = this.store.createRecord('enrollment', {
-							lesson: newLesson,
-							client: client,
-							pupil: pupil
-						});
-						enrollment.save();
-					}.bind(this));
 				}
+			}
 
+			var enrollment = this.store.createRecord('enrollment', {
+				lesson: this.get('model'),
+				client: client,
+				pupil: pupil
+			});
 
-			}.bind(this));
+			lesson.save().then(function() {
+				lesson.get('enrollments').forEach( function(enrollment) {
+					enrollment.save();		// client and pupil are embeded in this record. Sweet!
+				});
+			});
+
 
 
 
 
 			this.store.filter('calendar-event',function(event) {
-				if (event.instructor.id !== newLesson.get('instructor').get('id')) {
+				if (event.instructor.id !== lesson.get('instructor').get('id')) {
 					return false;
 				}
-				if (event.get('start_time').isBetween( newLesson.get('start_time'), newLesson.get('end_time') )) {
+				if (event.get('start_time').isBetween( lesson.get('start_time'), lesson.get('end_time') )) {
 					return true;
 				}
-				if (event.get('start_time').isSame( newLesson.get('start_time'))) {
+				if (event.get('start_time').isSame( lesson.get('start_time'))) {
 					return true;
 				}
 				return false;
@@ -139,7 +162,7 @@ export default Ember.ObjectController.extend({
 				events.forEach(function(event) {
 
 					console.log(event);
-					event.set('lesson', newLesson);
+					event.set('lesson', lesson);
 				});
 
 				this.transitionToRoute('calendar');

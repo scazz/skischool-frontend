@@ -1,19 +1,20 @@
 module.exports = function(app) {
   var express = require('express');
   var enrollmentsRouter = express.Router();
+	var fixtures= require('../fixtures/all');
 
 	var ENROLLMENTS = [
 		{
 			id: 1,
 			lesson: 1,
-			pupil: 1,
-			client: 1
+			pupil:  fixtures().pupils[0],
+			client: fixtures().clients[0]
 		},
 		{
 			id: 2,
 			lesson: 1,
-			pupil: 2,
-			client: 1
+			pupil: fixtures().pupils[1],
+			client: fixtures().clients[0]
 		}
 	];
   enrollmentsRouter.get('/', function(req, res) {

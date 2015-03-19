@@ -25,9 +25,8 @@
 		<hr>
 
         <div class="pupil-list">
-			{{ enrolled_pupils }}
-			{{#each pupil in enrolled_pupils}}
-				<div class="pupil">{{pupil.name}}</div>
+			{{#each enrollment in enrollments}}
+				<div class="pupil">{{enrollment.pupil.name}}</div>
 			{{/each}}
         </div>
 

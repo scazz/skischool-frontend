@@ -1,7 +1,7 @@
 module.exports = function(app) {
   var express = require('express');
   var clientsRouter = express.Router();
-	var fixtures= require('../fixtures/clients');
+	var fixtures= require('../fixtures/all');
 
 	var CLIENTS = fixtures().clients;
 

@@ -33,6 +33,8 @@ test('I can create a new lesson', function() {
 
 		fillIn('.lesson-form .clientName', "Smith");
 		fillIn('.lesson-form .clientFirstName', "John");
+
+		fillIn('.lesson-form .pupilName', "pupil");
 	});
 
 	andThen(function() {
