@@ -24,6 +24,11 @@ module.exports = function(app) {
   });
 
   enrollmentsRouter.post('/', function(req, res) {
+	  res.send({
+		  enrollment: {
+			  id: req.params.id
+		  }
+	  })
     res.status(201).end();
   });
 
@@ -35,7 +40,7 @@ module.exports = function(app) {
 
   enrollmentsRouter.put('/:id', function(req, res) {
     res.send({
-      'enrollments': {
+      'enrollment': {
         id: req.params.id
       }
     });

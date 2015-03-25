@@ -24,5 +24,14 @@ export default Ember.Route.extend({
 			controller.set('durations', durations);
 		});
 
+		if ( model.get('isPrivate') ) {
+			model.get('enrollments').then( function(enrollments) {
+				var enrollment = enrollments.get('firstObject');
+
+				if ( enrollment) {
+					controller.set('client', enrollment.get('client'));
+				}
+			});
+		}
 	}
 });

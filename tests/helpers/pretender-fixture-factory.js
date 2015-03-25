@@ -23,7 +23,7 @@ var LESSONS = [
 	{
 		id: 1,
 		instructor: 1,
-		type: "group",
+		type: "private",
 		start_time: moment().startOf('week').hours(10),
 		end_time:   moment().startOf('week').hours(12),
 		level: 	"2",
@@ -64,6 +64,21 @@ var CLIENTS = [
 	}
 ];
 
+var PUPILS = [
+	{
+		id: 1,
+		name: "Sarah",
+		age: 10,
+		level: 2
+	},
+	{
+		id: 2,
+		name: "George",
+		age: 8,
+		level: 3
+	}
+];
+
 
 var setup = function() {
 
@@ -83,7 +98,9 @@ var setup = function() {
 		this.get('/api/clients', function(request) {
 			return [200, {"Content-Type": "application/json"}, JSON.stringify( { "clients": CLIENTS })];
 		});
-
+		this.get('/api/pupils', function(request) {
+			return [200, {"Content-Type": "application/json"}, JSON.stringify( { pupils: PUPILS })];
+		});
 		this.post('/api/pupils', function(request) {
 			console.log(request.requestBody);
 			starting_id++;

@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { module,  test } from 'qunit';
 import startApp from '../helpers/start-app';
 import fixtureFactory from '../helpers/pretender-fixture-factory';
 
@@ -6,38 +7,38 @@ var application;
 var server;
 
 module('Acceptance: Calendar', {
-  setup: function() {
-    application = startApp();
-	server = fixtureFactory();
-  },
-  teardown: function() {
-    Ember.run(application, 'destroy');
-	  server.shutdown();
-  }
+	beforeEach: function() {
+		application = startApp();
+	},
+
+	afterEach: function() {
+		console.log("destroying calendar test * 2");
+		Ember.run(application, 'destroy');
+	}
 });
 
-test('visiting /calendar shows instructors and lessons', function() {
+test('visiting /calendar shows instructors and lessons', function(assert) {
   visit('/calendar');
 
   andThen(function() {
 	  var instructors = find(".instructor");
-	  equal(instructors.length, 3, "Application loaded three instructors");
+	  assert.equal(instructors.length, 3, "Application loaded three instructors");
 
 	  var firstTimePeriod = find('.time-period:eq(0)');
-	  equal( firstTimePeriod.hasClass('lesson'), false, "The first time period doesn't have a lesson booked" );
+	  assert.equal( firstTimePeriod.hasClass('lesson'), false, "The first time period doesn't have a lesson booked" );
 
 	  var thirdTimePeriod = find('.time-period:eq(2)');
-	  equal( thirdTimePeriod.hasClass('lesson'), true, "The third time period contains a lesson");
+	  assert.equal( thirdTimePeriod.hasClass('lesson'), true, "The third time period contains a lesson");
   });
 });
 
-test('Find and set an existing client', function() {
-	visit('/calendar');
-
-	andThen( function() {
-
-		equal(1, 1);
-
-	});
-});
+//test('Find and set an existing client', function(assert) {
+//	visit('/calendar');
+//
+//	andThen( function() {
+//
+//		assert.equal(1, 1);
+//
+//	});
+//});
 

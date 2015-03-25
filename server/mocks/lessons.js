@@ -11,7 +11,7 @@ module.exports = function(app) {
 		{
 			id: 1,
 			instructor: 1,
-			type: "group",
+			type: "private",
 			start_time: moment().startOf('week').hours(10),
 			end_time:   moment().startOf('week').hours(13),
 			duration: 2,

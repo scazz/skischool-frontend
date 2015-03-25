@@ -57,7 +57,7 @@ export default Ember.ObjectController.extend({
 			start_time.month ( newDate.month() );
 			start_time.date( newDate.date() );
 
-			this.set('startingDateTime', start_time);
+			this.set('model.start_time', start_time);
 		}
 
 		return this.get('startTime').toDate();
@@ -65,10 +65,11 @@ export default Ember.ObjectController.extend({
 
 	time: function(key, value) {
 		if (arguments.length > 1) {
+			console.log("we are updating the starting date time property");
 			var time = this.get('startTime');
 			time.hours(value.hours);
 			time.minutes(value.minutes);
-			this.set('startingDateTime', time);
+			this.set('model.start_time', time);
 		}
 		return this.get('startTime').format('HH:mm');
 	}.property('startTime'),
@@ -108,7 +109,11 @@ export default Ember.ObjectController.extend({
 
 		},
 		save: function() {
+			console.log("current starttime");
+			console.log( this.get('startTime').toDate());
+
 			var lesson = this.get('model');
+			//lesson.set('start_time', this.get('startTime'));
 			lesson.set('end_time', this.get('startTime').add( this.get('duration').get('hours'), 'hours'));
 			lesson.set('type', "group");
 
@@ -128,23 +133,28 @@ export default Ember.ObjectController.extend({
 					console.log("pupil has just been created with create record");
 					pupil = this.store.createRecord('pupil', pupil);
 				}
+
+				this.store.createRecord('enrollment', {
+					lesson: this.get('model'),
+					client: client,
+					pupil: pupil
+				});
 			}
 
-			var enrollment = this.store.createRecord('enrollment', {
-				lesson: this.get('model'),
-				client: client,
-				pupil: pupil
-			});
+
 
 			lesson.save().then(function() {
 				lesson.get('enrollments').forEach( function(enrollment) {
-					enrollment.save();		// client and pupil are embeded in this record. Sweet!
+					enrollment.save();		// client and pupil are embedded in this record. Sweet!
 				});
 			});
 
-
-
-
+			//unset all events with this lesson
+			this.store.all('calendar-event').forEach(function(event) {
+				if ( event.get('lesson') === lesson) {
+					event.set('lesson', undefined);
+				}
+			});
 
 			this.store.filter('calendar-event',function(event) {
 				if (event.instructor.id !== lesson.get('instructor').get('id')) {

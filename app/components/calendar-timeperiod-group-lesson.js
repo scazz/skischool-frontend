@@ -8,7 +8,7 @@ export default Ember.Component.extend({
 	lesson: Ember.required,
 
 	isSelected: function() {
-		return this.get('lesson').isSelected;
+		return this.get('lesson') ? this.get('lesson').isSelected : false;
 	}.property('lesson.isSelected'),
 
 	showLessonInfoAction: 'showLessonInfo',

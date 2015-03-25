@@ -10,6 +10,12 @@ var lesson = DS.Model.extend({
 	enrollments: DS.hasMany('enrollment', {async: true}),
 
 	isSelected: false,
+
+	isPrivate: function() {
+		console.log("called");
+		console.log ( this.get('type'));
+		return this.get('type') === 'private';
+	}.property('type')
 });
 
 
