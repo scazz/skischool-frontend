@@ -120,6 +120,9 @@ var setup = function() {
 		this.get('/api/lesson_durations', function(request) {
 			return [200, {"Content-Type": "application/json"}, JSON.stringify( { success:true, "lesson-durations": DURATIONS })];
 		});
+		this.get('/api/lesson_durations/:id', function(request) {
+			return [200, {"Content-Type": "application/json"}, JSON.stringify( { success:true, "lesson-duration": DURATIONS[request.params.id-1] })];
+		});
 		this.get('/api/clients', function(request) {
 			return [200, {"Content-Type": "application/json"}, JSON.stringify( { "clients": CLIENTS })];
 		});
