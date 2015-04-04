@@ -11,10 +11,12 @@ var server;
 module('Acceptance: BookingLessons', {
 	beforeEach: function() {
 		application = startApp();
+		server = fixtureFactory();
 	},
 
 	afterEach: function() {
 		console.log("destroying");
+		server.shutdown();
 		Ember.run(application, 'destroy');
 	}
 });
@@ -62,7 +64,7 @@ test('I can add 1 client but multiple pupils for a private lesson', function(ass
 	});
 	click( '.time-period:eq(0)' );
 
-	fillSelect2Box('.lesson-type', 'Private');
+	fillSelect2Box('.lesson-type', 'Private', assert);
 	fillIn('.lesson-form .clientName', "Smith");
 	fillIn('.lesson-form .clientFirstName', "John");
 

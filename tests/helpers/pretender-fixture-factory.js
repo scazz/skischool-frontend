@@ -25,7 +25,8 @@ var LESSONS = [
 		instructor: 1,
 		type: "private",
 		start_time: moment().startOf('week').hours(10),
-		end_time:   moment().startOf('week').hours(12),
+		end_time:   moment().startOf('week').hours(13),
+		duration: 2,
 		level: 	"2",
 		enrollments: [1,2]
 	},
@@ -78,7 +79,20 @@ var PUPILS = [
 		level: 3
 	}
 ];
-
+var ENROLLMENTS = [
+	{
+		id: 1,
+		lesson: 1,
+		pupil:  PUPILS[0],
+		client: CLIENTS[0]
+	},
+	{
+		id: 2,
+		lesson: 1,
+		pupil: PUPILS[1],
+		client: CLIENTS[0]
+	}
+];
 
 var setup = function() {
 
@@ -89,23 +103,54 @@ var setup = function() {
 		this.get('/api/instructors', function(request) {
 			return [200, {"Content-Type": "application/json"}, JSON.stringify( {  instructors: INSTRUCTORS })];
 		});
+
+
 		this.get('/api/lessons', function(request) {
 			return [200, {"Content-Type": "application/json"}, JSON.stringify( { lessons: LESSONS })];
 		});
+		this.post('/api/lessons', function(request) {
+			starting_id++;
+			return [200, {"Content-Type": "application/json"}, JSON.stringify( {"lesson": {"id": starting_id}})];
+		});
+		this.put('/api/lessons/:id', function(request) {
+			return [200, {"Content-Type": "application/json"}, JSON.stringify( { lesson: LESSONS[request.params.id-1] })];
+		});
+
+
 		this.get('/api/lesson_durations', function(request) {
 			return [200, {"Content-Type": "application/json"}, JSON.stringify( { success:true, "lesson-durations": DURATIONS })];
 		});
 		this.get('/api/clients', function(request) {
 			return [200, {"Content-Type": "application/json"}, JSON.stringify( { "clients": CLIENTS })];
 		});
+
+
 		this.get('/api/pupils', function(request) {
 			return [200, {"Content-Type": "application/json"}, JSON.stringify( { pupils: PUPILS })];
 		});
 		this.post('/api/pupils', function(request) {
-			console.log(request.requestBody);
 			starting_id++;
 			return [200, {"Content-Type": "application/json"}, JSON.stringify( {"pupil": {"id": starting_id}})];
 		});
+
+
+
+		this.get('/api/enrollments', function(request) {
+			return [200, {"Content-Type": "application/json"}, JSON.stringify( { enrollments: ENROLLMENTS })];
+		});
+		this.post('/api/enrollments', function(request) {
+			starting_id++;
+			return [200, {"Content-Type": "application/json"}, JSON.stringify( {"enrollment": {"id": starting_id}})];
+		});
+		this.put('/api/enrollments/:id', function(request) {
+			return [200, {"Content-Type": "application/json"}, JSON.stringify( { enrollment: ENROLLMENTS[request.params.id-1] })];
+		});
+		this.get('/api/enrollments/:id', function(request) {
+			return [200, {"Content-Type": "application/json"}, JSON.stringify( { enrollment: ENROLLMENTS[request.params.id-1] })];
+		});
+
+
+
 	});
 
 

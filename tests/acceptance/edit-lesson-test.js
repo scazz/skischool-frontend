@@ -15,12 +15,12 @@ var server;
 module('Acceptance: EditLesson', {
 	beforeEach: function() {
 		application = startApp();
-		console.log("started");
+		server = fixtureFactory();
 	},
 
 	afterEach: function() {
-		console.log("destroying editlesson * 2");
-		//Ember.run(application, 'destroy');
+	//	server.shutdown();
+	//	Ember.run(application, 'destroy');
 	}
 });
 
@@ -92,7 +92,7 @@ test('I can change a lesson time', function(assert) {
 		assert.equal(time.val(), "10:00", "The start time is 10:00 before editing");
 	});
 
-	fillIn('.lesson-form .start-time', "8:00");
+	fillIn('.lesson-form .start-time', "9:00");
 	andThen(function() {
 		find('.lesson-form .start-time').blur();
 	});

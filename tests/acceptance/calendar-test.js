@@ -9,11 +9,12 @@ var server;
 module('Acceptance: Calendar', {
 	beforeEach: function() {
 		application = startApp();
+		server = fixtureFactory();
 	},
 
 	afterEach: function() {
-		console.log("destroying calendar test * 2");
 		Ember.run(application, 'destroy');
+		server.shutdown();
 	}
 });
 

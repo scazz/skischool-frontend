@@ -114,7 +114,7 @@ export default Ember.ObjectController.extend({
 
 			var lesson = this.get('model');
 			//lesson.set('start_time', this.get('startTime'));
-			lesson.set('end_time', this.get('startTime').add( this.get('duration').get('hours'), 'hours'));
+			lesson.set('end_time', this.get('startTime').add( lesson.get('duration').get('hours'), 'hours'));
 			lesson.set('type', "group");
 
 			/*
