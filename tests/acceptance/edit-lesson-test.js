@@ -19,8 +19,8 @@ module('Acceptance: EditLesson', {
 	},
 
 	afterEach: function() {
-	//	server.shutdown();
-	//	Ember.run(application, 'destroy');
+		server.shutdown();
+		Ember.run(application, 'destroy');
 	}
 });
 
