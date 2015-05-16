@@ -10,6 +10,10 @@
 	Current Client: {{currentClientName}}
 </div>
 
+<div class="calendar-navigation">
+	{{view-previous-week changeWeekAction="viewPreviousWeek"}}
+	{{view-next-week changeWeekAction="viewNextWeek"}}
+</div>
 <div class="calendar">
 	{{calendar-day-headings weekStart=week_start}}
 

@@ -37,6 +37,16 @@ var LESSONS = [
 		start_time: moment().startOf('week').hours(15),
 		end_time: moment().startOf('week').hours(17),
 		level: "3",
+	},
+	{
+		id: 3,
+		instructor: 1,
+		type: "private",
+		start_time: moment().startOf('week').hours(8).add(7, 'days'),
+		end_time:   moment().startOf('week').hours(11).add(7, 'days'),
+		duration: 2,
+		level: 	"2",
+		enrollments: [1,2]
 	}
 ];
 

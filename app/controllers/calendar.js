@@ -2,18 +2,25 @@ import Ember from "ember";
 
 export default Ember.ArrayController.extend({
 	//needs: ['instructors', 'lessons'],
+	queryParams: {
+		weekStartQP: "week_start"
+	},
 
 	instructors: function() {
 		return this.store.find('instructor');
 	}.property(),
 
 	week_start: function() {
-		return  moment().startOf('week');
-	}.property(),
+		return  this.get('weekStartQP') ? moment(this.get('weekStartQP')) : moment().startOf('week');
+	}.property('weekStartQP'),
+
+	weekStartQP: null,
 
 	lessons: undefined,
 
-	timePeriods: undefined,
+	timePeriods: function() {
+		return this.generateTimePeriodsForWeek(this.get('week_start'));
+	}.property('week_start'),
 
 	current_client: undefined,
 
@@ -25,21 +32,6 @@ export default Ember.ArrayController.extend({
 		return client.get('fullName');
 	}.property('current_client'),
 
-	createCalendarTimePeriod: function(instructor, start_time, end_time) {
-		var timePeriod = this.store.createRecord('calendar-event', {
-			instructor: instructor,
-			start_time: start_time,
-			end_time: end_time
-		});
-		return timePeriod;
-	},
-
-	createEmptyEvent: function(start_time, end_time) {
-		return this.store.createRecord('calendar-event', {
-			start_time: start_time,
-			end_time: end_time
-		});
-	},
 
 	actions: {
 		showNewLessonForm: function(template) {
@@ -59,6 +51,35 @@ export default Ember.ArrayController.extend({
 		showLessonInfo: function(lesson) {
 			this.transitionToRoute('calendar.info', lesson );
 		}
+	},
+
+	generateTimePeriodsForWeek: function(weekStart) {
+		var dayStart = 8;
+		var dayEnd = 17;
+		var calendarDisplayPeriod = moment.duration(1, "hour" );
+		var currentTimePeriodStart = weekStart.clone().add(dayStart, 'hours');
+		var workingWeekEnd = weekStart.clone().add(7, 'days');
+
+		var timePeriods = [];
+
+		while (currentTimePeriodStart.isBefore( workingWeekEnd)) {
+			var currentTimePeriodEnd = currentTimePeriodStart.clone().add( calendarDisplayPeriod );
+
+			timePeriods.push( {
+				start_time: currentTimePeriodStart.clone(),
+				end_time: currentTimePeriodEnd
+			});
+
+			currentTimePeriodStart.add( calendarDisplayPeriod  );
+
+			// we need to skip from today to tomorrow
+			if (currentTimePeriodStart.hours() >= dayEnd) {
+				currentTimePeriodStart.add(1, "day").hours( dayStart );
+			}
+		}
+
+		return timePeriods;
 	}
+
 
 });

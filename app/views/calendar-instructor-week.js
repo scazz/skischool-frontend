@@ -4,22 +4,18 @@ export default Ember.View.extend({
 	templateName: 'calendar-instructor-week',
 
 
-	createEvent: function() {
-		this.store.createRecord();
-	},
-
 	entries: function() {
 		var calendarEntries = [];
 
 		var timePeriods = this.get('controller.timePeriods');
-		//console.log(timePeriods);
 
 		for(var i=0; i<timePeriods.length; i++) {
 			var event =this.getEventForTimePeriod(timePeriods[i]);
 			calendarEntries.push(event);
 		}
+
 		return calendarEntries;
-	}.property('controller.lessons'),
+	}.property('controller.lessons', 'controller.timePeriods'),
 
 	getEventForTimePeriod: function(timePeriod) {
 		var self = this;
@@ -37,7 +33,12 @@ export default Ember.View.extend({
 			return self.eventFallsOnTimePeriod(event, timeSpan);
 		})[0];
 
-		var calendarEvent = self.get('controller').createCalendarTimePeriod(current_instructor, timeSpan.start_time, timeSpan.end_time);
+		var calendarEvent =  {
+			instructor: current_instructor,
+			start_time: timeSpan.start_time,
+			end_time: timeSpan.end_time
+		};
+
 
 		if (lesson) {
 			calendarEvent.lesson = lesson;

@@ -2,15 +2,23 @@ import Ember from "ember";
 
 export default Ember.Route.extend({
 
+	x: 0,
+
+	queryParams: {
+		weekStartQP: {
+			refreshModel: true
+		}
+	},
+
 	model: function() {
+		console.log("model function fired");
+		//return [Math.random()];
 	},
 
 	setupController: function(controller, model) {
+		console.log("fired");
 		controller.set('model', model);
 		controller.set('lessons', this.store.find('lesson'));
-		//controller.set('')
-		var weekStart = controller.get('week_start');
-		controller.set('timePeriods', this.generateTimePeriodsForWeek(weekStart));
 	},
 
 	actions: {
@@ -32,15 +40,24 @@ export default Ember.Route.extend({
 		},
 		clientSelected: function(client) {
 			this.controller.set('current_client', client);
+		},
+
+		viewPreviousWeek: function() {
+			var previousWeek = this.controller.get('week_start').clone().subtract(7, 'days');
+			this.controller.set('weekStartQP', previousWeek.format('YYYY-MM-DD'));
+		},
+
+		viewNextWeek: function() {
+			var nextWeek = this.controller.get('week_start').clone().add(7, 'days');
+			this.controller.set('weekStartQP', nextWeek.format('YYYY-MM-DD'));
 		}
 	},
-
 	generateTimePeriodsForWeek: function(weekStart) {
 		var dayStart = 8;
 		var dayEnd = 17;
 		var calendarDisplayPeriod = moment.duration(1, "hour" );
 		var currentTimePeriodStart = weekStart.clone().add(dayStart, 'hours');
-		var workingWeekEnd = moment().endOf('week');
+		var workingWeekEnd = weekStart.clone().add(7, 'days');
 
 		var timePeriods = [];
 
@@ -62,5 +79,7 @@ export default Ember.Route.extend({
 
 		return timePeriods;
 	}
+
+
 
 });
